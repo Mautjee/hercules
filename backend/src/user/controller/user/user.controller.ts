@@ -16,7 +16,7 @@ export class UserController {
     }
 
     @Get()
-    async findAll() {
+    async findAll(): Promise<UserDto[]> {
         const users = await this.userService.findAll();
         //const listUsers: ListUserDTO = { usersList: users };
         return users;
