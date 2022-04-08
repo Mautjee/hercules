@@ -23,13 +23,17 @@ export class UserService {
         return await this.UserModule.findById(id).exec();
     }
 
-    async updateUserCurrentlyAttending(id: number, attending: boolean): Promise<boolean> {
-        const user = await this.UserModule.updateOne({ _id: id }, {
-            $set: {
-                currentlyAttending: attending
-            }
-        })
+    async updateUserCurrentlyAttending(id: number): Promise<boolean> {
+        return await this.UserModule.findOneAndUpdate({ _id: id }, [{ $set: { present: { $eq: [false, "$present"] } } }]);
+    }
 
-        return user.acknowledged
+    async search(query: string): Promise<User[]> {
+
+        let x = await this.UserModule.find().or([
+            { first_name: { "$regex": query, "$options": "i" } },
+            { last_name: { "$regex": query, "$options": "i" } }
+        ]).exec();
+        return x;
+
     }
 }

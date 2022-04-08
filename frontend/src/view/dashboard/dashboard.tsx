@@ -1,33 +1,35 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { DashboardContainer } from './styles';
 import { Searchbar, UserTable } from '../../components';
 import { useQuery } from 'react-query';
 import { User, UserList } from '../../types'
-import * as api from '../../service/api/userApi';
-import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { useLimitUser, useSearchUser } from '../../service/api/userApi';
 
 
 export const Dashboard: FC = () => {
-    const { isLoading, isSuccess, data } = useQuery<User[]>(['users'], api.useGetUsers, {
-        initialData: [],
-    })
-    if (isLoading) {
-        return <h1>Is Loading</h1>
-    }
-    if (!data) {
-        <h1>Something went wrong</h1>
-    }
-    if (isSuccess) {
-        console.log('data', data)
-        return (
-            <DashboardContainer>
-                <h1>Dashboard view</h1>
-                <Searchbar></Searchbar>
-                <UserTable list={data}></UserTable>
-            </DashboardContainer >
-        );
-    }
+    const [search, setSearch] = useState('');
+    const { data, isSuccess } = useLimitUser();
+    const searchUser = useSearchUser(search);
+    const [filterdUserList, setfilterdUserList] = useState<User[]>([]);
+
+    useEffect(() => {
+        if (isSuccess) {
+            setfilterdUserList(data);
+        }
+    }, [])
+
+    useEffect(() => {
+        searchUser.refetch();
+        if (searchUser.isSuccess) {
+            setfilterdUserList(searchUser.data);
+        }
+    }, [search]);
+
     return (
-        <></>
-    )
+        <DashboardContainer>
+            <h1>Hercules leden dashboard</h1>
+            <Searchbar setSearch={setSearch} />
+            <UserTable list={filterdUserList} />
+        </DashboardContainer>
+    );
 };

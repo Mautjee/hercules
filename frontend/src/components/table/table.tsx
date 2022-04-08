@@ -7,6 +7,8 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { User } from '../../types';
+import { Button } from "@mui/material";
+import { Row } from './row';
 interface props {
     list: User[]
 }
@@ -25,24 +27,11 @@ export const UserTable: FC<props> = ({ list }) => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {list.map((row) => {
-                        <TableRow
-                            key={row._id}
-                            sx={{ '&:last-child td,&:last-child th': { border: 0 } }}
-                            style={row.currentlyAttending
-                                ? ({ backgroundColor: 'green', color: 'white', })
-                                : ({ backgroundColor: 'red', color: 'white', })}
-                        >
-                            <TableCell component="th" scope="row">
-                                {row.first_name}
-                            </TableCell>
-                            <TableCell align="right">{row.last_name}</TableCell>
-                            <TableCell align="right">{row.attendCount}</TableCell>
-                            <TableCell align="right">{row.currentlyAttending}</TableCell>
-                        </TableRow>
-                    })}
+                    {list.map((row) => (
+                        <Row key={row._id} user={row} />
+                    ))}
                 </TableBody>
             </Table>
-        </TableContainer>
+        </TableContainer >
     );
 };
