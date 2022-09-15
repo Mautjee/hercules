@@ -1,0 +1,27 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    build: ./Dockerfile.frontend
+    ports:
+      - "3000:3000"
+  backend:
+    container_name: backend
+    build: ./Dockerfile.backend
+    links: 
+      - "mongodb_container:db"
+    ports:
+      - "80:80"
+  mongodb_container:
+    container_name: MongoDB
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+volumes:
+  mongodb_data_container:

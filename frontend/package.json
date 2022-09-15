@@ -1,47 +1,27 @@
 {
-  "name": "create-react-app-with-styled-components-typescript",
-  "version": "5.0.0",
+  "name": "frontend",
   "private": true,
-  "dependencies": {
-    "@mui/lab": "latest",
-    "@mui/material": "latest",
-    "@mui/styled-engine-sc": "latest",
-    "@testing-library/jest-dom": "latest",
-    "@testing-library/react": "latest",
-    "@testing-library/user-event": "latest",
-    "axios": "^0.26.1",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-query": "^3.34.19",
-    "react-scripts": "latest",
-    "styled-components": "latest"
-  },
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "tsc": "./node_modules/.bin/tsc",
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@mui/material": "^5.10.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-query": "^3.39.2",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
-    "@craco/craco": "latest",
-    "@types/node": "latest",
-    "@types/react": "latest",
-    "@types/react-dom": "latest",
-    "@types/styled-components": "latest",
-    "craco-alias": "^3.0.1",
-    "typescript": "latest"
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
+    "typescript": "^4.6.4",
+    "vite": "^3.0.7"
   }
 }

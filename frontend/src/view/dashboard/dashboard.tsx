@@ -10,7 +10,7 @@ export const Dashboard: FC = () => {
     const [search, setSearch] = useState('');
     const { data, isSuccess } = useLimitUser();
     const searchUser = useSearchUser(search);
-    const [filterdUserList, setfilterdUserList] = useState<User[]>([]);
+    const [filterdUserList, setfilterdUserList] = useState<User[]>([])    
 
     useEffect(() => {
         if (isSuccess) {
@@ -28,7 +28,7 @@ export const Dashboard: FC = () => {
     return (
         <DashboardContainer>
             <h1>Hercules leden dashboard</h1>
-            <Searchbar setSearch={setSearch} />
+            <Searchbar />
             <UserTable list={filterdUserList} />
         </DashboardContainer>
     );
