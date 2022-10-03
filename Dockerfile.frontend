@@ -4,17 +4,16 @@ RUN apk --no-cache add --update git
 
 WORKDIR /usr/main/
 
-RUN yarn set version 2 --only-if-needed
+COPY frontend/package.json ./
+COPY frontend/yarn.lock ./
+COPY frontend/vite.config.ts ./
+COPY frontend/tsconfig.json ./
+COPY frontend/tsconfig.node.json ./
 
-COPY frontend/package.json ./package.json
-COPY frontend/yarn.lock ./yarn.lock
-COPY frontend/vite.config.ts ./vite.config.ts
-COPY frontend/tsconfig.json ./tsconfig.json
-COPY frontend/tsconfig.node.json ./tsconfig.node.json
+COPY frontend/index.html ./
+COPY frontend/src/ ./src
 
-COPY frontend/index.html ./index.html
-COPY frontend/src/* ./src/*
+RUN npm install
 
-RUN yarn
 
-CMD ["yarn", "build"]
+CMD ["npm", "run", "dev"]

@@ -4,7 +4,6 @@ RUN apk --no-cache add --update git
 
 WORKDIR /usr/main/
 
-RUN yarn set version 2 --only-if-needed
 
 COPY backend/package.json ./package.json
 COPY backend/package-lock.json ./package-lock.json
@@ -14,10 +13,10 @@ COPY backend/tsconfig.build.json ./tsconfig.build.json
 
 COPY backend/nest-cli.json ./nest-cli.json
 
-COPY backend/src* ./src/
+COPY backend/src ./src/
 
-RUN yarn
+RUN npm install
 
-RUN yarn build
+RUN npm run build
 
 CMD ["node", "dist/main.js"]

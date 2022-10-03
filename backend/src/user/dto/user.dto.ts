@@ -8,9 +8,9 @@ export class UserDto {
     @IsString()
     last_name: string;
     @IsNumber()
-    attendCount: number;
+    attended_count: number;
     @IsBoolean()
-    currentlyAttending: boolean;
+    currently_attending: boolean;
 }
 
 export class ListUserDTO {
