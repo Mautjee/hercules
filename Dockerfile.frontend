@@ -1,0 +1,19 @@
+FROM node:16-alpine as build
+
+RUN apk --no-cache add --update git
+
+WORKDIR /usr/main/
+
+COPY frontend/package.json ./
+COPY frontend/yarn.lock ./
+COPY frontend/vite.config.ts ./
+COPY frontend/tsconfig.json ./
+COPY frontend/tsconfig.node.json ./
+
+COPY frontend/index.html ./
+COPY frontend/src/ ./src
+
+RUN npm install
+
+
+CMD ["npm", "run", "dev"]

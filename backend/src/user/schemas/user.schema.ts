@@ -15,10 +15,10 @@ export class User {
   last_name: string;
 
   @Prop()
-  attendCount: number;
+  attended_count: number;
 
   @Prop()
-  currentlyAttending: boolean;
+  currently_attending: boolean;
   static id: any;
 }
 
