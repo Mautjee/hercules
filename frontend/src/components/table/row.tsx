@@ -10,9 +10,7 @@ interface Props {
 }
 
 export const Row: FC<Props> = ({ user }) => {
-    console.log(" Row = called")
     const updateUser = useUpdateUser();
-
     if (updateUser.isLoading) return (
         < TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} style={{ backgroundColor: "orange" }}>
             <TableCell component="th" scope="user">{user.first_name}</TableCell>
@@ -26,29 +24,27 @@ export const Row: FC<Props> = ({ user }) => {
             </TableCell>
         </TableRow >
     );
-
-    if (updateUser.isError) return <>Something went wrong</>;
-    if (user.currentlyAttending) {
-        return (
-            < TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} style={{ backgroundColor: "green" }}>
+    {
+        user.currentlyAttending ?
+            (< TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }} style={{ backgroundColor: "green" }}>
                 <TableCell component="th" scope="user">{user.first_name}</TableCell>
                 <TableCell align="right">{user.last_name}</TableCell>
                 <TableCell align="right">{user.attendCount}</TableCell>
                 <TableCell align="right">
                     <Button variant="outlined" onClick={() => { updateUser.mutate(user._id); }}>Cancel</Button>
                 </TableCell>
-            </TableRow >
-        )
+            </TableRow >)
+            :
+            (< TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell component="th" scope="user">{user.first_name}</TableCell>
+                <TableCell align="right">{user.last_name}</TableCell>
+                <TableCell align="right">{user.attendCount}</TableCell>
+                <TableCell align="right">
+                    <Button variant="outlined" onClick={() => { updateUser.mutate(user._id); }}>Attending</Button>
+                </TableCell>
+            </TableRow >)
     }
-    return (
-        < TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="user">{user.first_name}</TableCell>
-            <TableCell align="right">{user.last_name}</TableCell>
-            <TableCell align="right">{user.attendCount}</TableCell>
-            <TableCell align="right">
-                <Button variant="outlined" onClick={() => { updateUser.mutate(user._id); }}>Attending</Button>
-            </TableCell>
-        </TableRow >
-    );
+    if (updateUser.isError) return <>Something went wrong</>;
+    return (<></>)
 
 }

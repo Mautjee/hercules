@@ -27,19 +27,15 @@ export const useLimitUser = () => {
 
     return useQuery<User[]>(
         ["limitUser"],
-        async () => (await api.get<User[]>(`/users/limit/30`)).data,
+        async () => (await api.get<{ list: User[] }>(`/users/limit/30`)).data.list,
         {
             initialData: [],
         });
 
 };
-export const useSearchUser = (query: String) => {
+export const apiSearchUser = async (query: String) => {
     const q = { params: { query: query } }
-    return useQuery<User[]>(
-        ["search", query], async () => (await api.get<User[]>(`/users/search/`, q)).data,
-        {
-            initialData: [],
-        });
+    return await api.get<{ result: User[] }>(`/users/search/`, q);
 }
 export const useUpdateUser = () => {
     const queryClient = useQueryClient();
